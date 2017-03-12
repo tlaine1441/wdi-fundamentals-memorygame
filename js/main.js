@@ -23,6 +23,7 @@ var cards = [
 	}
 ]; 
 var cardsInPlay = [];
+var tryCount = 0;
 
 var checkForMatch = function() {
 		if (cardsInPlay[0] === cardsInPlay[1]) {
@@ -33,16 +34,21 @@ var checkForMatch = function() {
 };
 
 var flipCard = function() {
-	var cardId = this.getAttribute('data-id');
-	console.log(cardId);
-	console.log("User flipped " + cards[cardId].rank);
-	cardsInPlay.push(cards[cardId].rank);
-	console.log(cards[cardId].cardImage);
-	console.log(cards[cardId].suit);
-	this.setAttribute('src',cards[cardId].cardImage);
-	if (cardsInPlay.length === 2) {
-		checkForMatch();
+	if (tryCount < 2) {
+		var cardId = this.getAttribute('data-id');
+		console.log(cardId);
+		console.log("User flipped " + cards[cardId].rank);
+		cardsInPlay.push(cards[cardId].rank);
+		console.log(cards[cardId].cardImage);
+		console.log(cards[cardId].suit);
+		this.setAttribute('src',cards[cardId].cardImage);
+		if (cardsInPlay.length === 2) {
+			checkForMatch();
+		}
+	} else {
+		alert("Please press the reset button to play again!");
 	}
+	tryCount += 1;
 };
 
 var createBoard = function() {
@@ -55,6 +61,26 @@ var createBoard = function() {
 	}
 };
 
+var createReset = function() {
+	var buttonElement = document.createElement('button');
+	buttonElement.setAttribute('name', 'reset');
+	buttonElement.textContent = "Reset";
+	buttonElement.addEventListener('click', resetBoard);
+	document.querySelector('#reset-btn').appendChild(buttonElement);
+};
+
+var resetBoard = function() {
+	cardsInPlay = [];
+	tryCount = 0;
+
+	for (var i = 0; i < cards.length; i++) {
+		elem = document.querySelector('img');
+	    elem.parentNode.removeChild(elem);
+	}
+	createBoard();
+};
+
 
 
 createBoard();
+createReset();

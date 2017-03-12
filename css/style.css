@@ -58,6 +58,21 @@ img {
 	margin: 40px 8px;
 }
 
+button {
+	background-color: #F15B31;
+	padding: 10px 30px;
+	border: #F15B31 solid 1px;
+	border-radius: 5px;
+	color: #fff;
+	font-family: "Raleway", sans-serif;
+	letter-spacing: 1px;
+	font-size: 18px;
+}
+button:focus { outline:0 !important; }
+button:onClick {
+	background-color: black;
+}
+
 footer {
 	text-transform: uppercase;
 	padding: 0 20px;
